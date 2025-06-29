@@ -9,7 +9,7 @@ app.use(express.json())
 app.use('/usuario',rutaUser)
 require('./model/conexion')
 
-app.use((error, req, res)=>{
+app.use((error, res, req)=>{
     return res.status(500).json({ status: false, message: `Se ha generado un error ${error.message}`})
 })
 app.use((req, res)=>{
