@@ -45,7 +45,24 @@ const login= async (req, res)=>{
     }
 }
 
+const autenticacionControl = async(req, res)=>{
+
+    try{
+
+    const usuario = await RegistrarUser.findOne({ username: req.data.username }).select('-password') //que busque el perfil pero sin traer el password
+
+    if(!usuario){
+        return res.status(401).json({message:"usuario no encontrado"})
+    }
+
+    return res.json(usuario)//en caso tal vaya todo bien entonces regresa al perfil del usuario 
+    }catch(error){
+
+        return res.status(500).json({ status: false, message: error })
+    }
+}
 module.exports={
     CrearUser,
-    login
+    login,
+    autenticacionControl
 }
